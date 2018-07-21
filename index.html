@@ -1,0 +1,87 @@
+<html>
+<head>
+    <title>MemoryIQ - SCORM Wrapper: SCORM 1.2</title>
+    <script type="text/javascript" src="SCORM_API_wrapper.js"></script>
+</head>
+<body>
+    <script type="text/javascript">
+    //the url of our remote content.
+    var content_url = "https://intelsoftware.thetrainingarcade.com/games/jump/#!/optane";
+
+    //creating shortcut for less verbose code
+    var scorm = pipwerks.SCORM;
+    scorm.version = "1.2";
+    var lmsConnected = false;
+
+    function init() {
+        lmsConnected = scorm.init();
+    }
+
+
+    function end() {
+        scorm.quit();
+    }
+
+
+    window.onload = function() {
+        //load our remote content
+        document.getElementById('content_frame').src = content_url;
+        //I am initiating the SCORM connection when the window loads
+        //might be best to wait until we know the content has loaded...
+        init();
+    };
+
+    window.onunload = function() {
+        end(); //run the SCORM exit stuff when window closes
+    };
+    //using postMessage to ensure there are no CORS issues.
+    //you could lock this down some by specifying an expected event.origin
+    //listen for postMessage events from iFrame.
+    //Set data
+    //Post success back to iFrame
+    window.addEventListener('message', function(event) {
+        console.log('message received from iframe:', event);
+        var data = event.data;
+        if(!data.type || data.type !== 'scorm' || !lmsConnected) return;
+        switch(data.method){
+            case 'get':
+                var getData = scorm.get(data.model);
+                event.source.postMessage({
+                    type:'scorm',
+                    method: 'get',
+                    model:data.model,
+                    value:getData,
+                    version:scorm.version
+                }, event.origin);
+                break;
+            case 'set':
+                var callSucceeded = scorm.set(data.model, data.value);
+                event.source.postMessage({
+                    type:'scorm',
+                    method:'set',
+                    model:data.model,
+                    value:data.value,
+                    success:callSucceeded,
+                    version:scorm.version
+                }, event.origin);
+                break;
+            case 'version':
+                event.source.postMessage({
+                    type:'scorm',
+                    method: 'version',
+                    version:scorm.version
+                }, event.origin);
+                break;
+            case 'heartbeat':
+                var statusStr = 'cmi.core.lesson_status';
+                var status = scorm.get(statusStr);
+                scorm.set(statusStr, status);
+                break;
+        }
+
+    }, false);
+    </script>
+    <iframe id="content_frame" src="blank.html" width="100%" height="100%" />
+</body>
+
+</html>
