@@ -1,6 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
+<<<<<<< HEAD
 <widget id="com.eshnil2000.MemoryIQ" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>MemoryIQ Game</name>
+=======
+<widget id="io.cordova.hellocordova" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>MemoryIQ</name>
+>>>>>>> a52f57ed54f2625a2863ade1b2d04a6362b95faa
     <description>
         Bring out your inner DevOps Ninja!
     </description>
