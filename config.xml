@@ -29,6 +29,22 @@
         <allow-intent href="itms-apps:*" />
     </platform>
 
+    <platform name="android">
+        <icon density="ldpi" src="res/icon/android/mipmap-mdpi/ic_launcher.png" />
+        <icon density="mdpi" src="res/icon/android/mipmap-mdpi/ic_launcher.png" />
+        <icon density="hdpi" src="res/icon/android/mipmap-hdpi/ic_launcher.png" />
+        <icon density="xhdpi" src="res/icon/android/mipmap-xhdpi/ic_launcher.png" />
+        <icon density="xxhdpi" src="res/icon/android/mipmap-xxhdpi/ic_launcher.png" />
+        <icon density="xxxhdpi" src="res/icon/android/mipmap-xxxhdpi/ic_launcher.png" />
+        <splash density="land-ldpi" src="res/icon/android/mipmap-xxxhdpi/ic_launcher.png" />
+    </platform>
+
+    <platform name="ios">
+        <icon platform="ios" src="res/icon/IOS/Icon-1024-1024.png" />
+        <splash platform="ios" src="res/icon/IOS/Icon-1024-1024.png" />
+        
+    </platform>
+
     <preference name="android-minSdkVersion" value="14" />
     <preference name="android-targetSdkVersion" value="26" />
     <preference name="android-maxSdkVersion" value="26" />
